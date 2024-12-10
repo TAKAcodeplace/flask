@@ -12,20 +12,10 @@
 <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
         <div class="container">
-            <a class="navbar-brand" href="index">
+            <a class="navbar-brand" href="/index">
                 <i class="fas fa-calendar-alt me-2"></i>
                 明日の予定
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index">トップページ</a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </nav>
 
@@ -68,6 +58,39 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- 掲示板 -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h2 class="h5 mb-3">
+                            <i class="fas fa-comments me-2"></i>
+                            掲示板
+                        </h2>
+                        <!-- 投稿フォーム -->
+                        <form method="POST" action="/bulletin_board">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">名前</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="匿名">
+                            </div>
+                            <div class="mb-3">
+                                <label for="content" class="form-label">メッセージ</label>
+                                <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">投稿する</button>
+                        </form>
+
+                        <!-- 投稿一覧 -->
+                        <h3 class="h6 mt-4">投稿一覧</h3>
+                        <ul class="list-group">
+                            {% for post in posts %}
+                            <li class="list-group-item">
+                                <strong>{{ post.name }}</strong> <small class="text-muted">({{ post.timestamp }})</small>
+                                <p>{{ post.content }}</p>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <!-- サイドバー -->
@@ -93,9 +116,9 @@
                             今日のおみくじ
                         </h2>
                         <form method="POST">
+                            <input type="hidden" name="draw_fortune" value="1">
                             <div class="text-center">
-                                <span class="badge bg-info mb-3 p-2" style="font-size: 2.0rem;">{{ fortune_result
-                                    }}</span>
+                                <span class="badge bg-info mb-3 p-2" style="font-size: 2.0rem;">{{ fortune_result }}</span>
                                 <p class="mb-3">{{ fortune_advice }}</p>
                                 <button class="btn btn-outline-primary btn-sm">
                                     <i class="fas fa-sync-alt me-2"></i>
@@ -108,14 +131,6 @@
             </div>
         </div>
     </div>
-
-    <footer class="bg-dark text-light mt-5 py-4">
-        <div class="container text-center">
-            <p class="mb-0">© 大阪情報専門学校 2024 Linuxサーバ構築</p>
-        </div>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
