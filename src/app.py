@@ -61,6 +61,9 @@ def tomorrow_plan() -> str:
     )
 
 
+# 修正
+
+
 @application.route("/bulletin_board", methods=["POST"])
 def bulletin_board() -> Response:
     """掲示板への投稿処理"""
