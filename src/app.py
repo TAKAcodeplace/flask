@@ -74,4 +74,4 @@ def bulletin_board() -> Response:
         bulletin_board_posts.append(
             {"name": name, "content": content, "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
         )
-    return redirect(url_for("tomorrow_plan"))
+    return redirect(url_for("tomorrow_plan"))  # 投稿後にリダイレクト
