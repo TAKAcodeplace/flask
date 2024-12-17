@@ -68,10 +68,16 @@ def tomorrow_plan() -> str:
 def bulletin_board() -> Response:
     """掲示板への投稿処理"""
     global bulletin_board_posts  # グローバル変数を利用
-    name = request.form.get("name", "匿名")
-    content = request.form.get("content", "")
-    if content.strip():
-        bulletin_board_posts.append(
-            {"name": name, "content": content, "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
-        )
+
+    if "delete" in request.form:
+        index_to_delete = int(request.form.get("delete"))
+        if 0 <= index_to_delete < len(bulletin_board_posts):
+            del bulletin_board_posts[index_to_delete]
+    else:
+        name = request.form.get("name", "匿名")
+        content = request.form.get("content", "")
+        if content.strip():
+            bulletin_board_posts.append(
+                {"name": name, "content": content, "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+            )
     return redirect(url_for("tomorrow_plan"))  # 投稿後にリダイレクト
